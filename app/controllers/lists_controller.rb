@@ -1,31 +1,30 @@
 class ListsController < ApplicationController
-  before_action :set_list, only: %i[show update destroy edit]
+  before_action :set_list, only: %i[show]
 
   def index
+    @lists = List.all
   end
 
   def show
   end
 
   def new
+    @list = List.new
   end
 
   def create
-  end
-
-  def edit
-  end
-
-  def delete
-  end
-
-  def update
+    @list = List.new(list_params)
+    if @list.save
+      redirect_to @list, notice: "list was successfully created."
+    else
+      render :new, status: :unprocessable_entity
+    end
   end
 
   private
 
   def set_list
-    @list = list.find(params[:id])
+    @list = List.find(params[:id])
   end
 
   def list_params

@@ -1,14 +1,13 @@
 Rails.application.routes.draw do
-  get 'lists/index'
-  get 'lists/show'
-  get 'lists/new'
-  get 'lists/create'
-  get 'lists/edit'
-  get 'lists/delete'
-  get 'lists/update'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
   # root "articles#index"
-  resources :lists
+  # root "lists#index"
+  # get "/lists/:id", to: "lists#show"
+  # get "/lists/new", to: "lists#new"
+  # post "/lists", to: "lists#create"
+  resources :lists do
+    resources :bookmarks, only: %i[new create]
+  end
 end
